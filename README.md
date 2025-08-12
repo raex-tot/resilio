@@ -1,30 +1,37 @@
-# Minimalist terminal website
+# DBT+
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+Minimal Flutter + Firebase starter for DBT skills app.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/raex-tots-projects/v0-minimalist-terminal-website)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/QM7t2EMuqHH)
+## Setup
+1. Install [Flutter](https://flutter.dev) and [Firebase CLI](https://firebase.google.com/docs/cli).
+2. Create a Firebase project and update `.firebaserc` with your project id.
+3. Enable Firestore, Auth, Analytics, Crashlytics, Remote Config, Storage and Hosting.
+4. Run in `dbt_plus/`:
+   ```bash
+   flutter pub get
+   flutter pub run build_runner build --delete-conflicting-outputs
+   flutter gen-l10n
+   ```
+5. Configure platforms (Android/iOS/Web) with `flutter create .` if needed.
+6. To run the app:
+   ```bash
+   flutter run
+   ```
 
-## Overview
+## Cloud Functions
+In `functions/`:
+```bash
+npm install
+npm run build
+firebase deploy --only functions
+```
+Set `OPENAI_API_KEY` via `firebase functions:secrets:set` before deploying.
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Localization
+ARB files live under `lib/core/l10n`. Use `flutter gen-l10n` after editing.
 
-## Deployment
+## Testing
+Run `flutter test` in `dbt_plus/`.
 
-Your project is live at:
-
-**[https://vercel.com/raex-tots-projects/v0-minimalist-terminal-website](https://vercel.com/raex-tots-projects/v0-minimalist-terminal-website)**
-
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/QM7t2EMuqHH](https://v0.dev/chat/projects/QM7t2EMuqHH)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## GDPR
+User data is stored in Firebase. Ensure you update privacy policy and comply with local regulations.

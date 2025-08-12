@@ -1,0 +1,18 @@
+[
+  {
+    "id": "tip",
+    "title": "TIP",
+    "level": "high",
+    "steps": ["Temperature change", "Intense exercise", "Paced breathing"],
+    "localized": {"de": "TIPP", "en": "TIP"},
+    "isCore": true
+  },
+  {
+    "id": "mindful_breathing",
+    "title": "Mindful Breathing",
+    "level": "low",
+    "steps": ["Inhale", "Exhale"],
+    "localized": {"de": "Achtsam atmen", "en": "Mindful Breathing"},
+    "isCore": true
+  }
+]
