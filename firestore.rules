@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isSelf(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function hasTherapistLink(clientId) {
+      return exists(/databases/$(db)/documents/therapist_clients/$(request.auth.uid + '_' + clientId));
+    }
+
+    match /users/{uid} {
+      allow read, write: if isSelf(uid);
+    }
+
+    match /entries/{id} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete:
+        if isSignedIn() && resource.data.userId == request.auth.uid
+        || (isSignedIn() && hasTherapistLink(resource.data.userId));
+    }
+
+    match /tension_samples/{id} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow read:
+        if isSignedIn() && resource.data.userId == request.auth.uid
+        || (isSignedIn() && hasTherapistLink(resource.data.userId));
+    }
+
+    match /skills/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /therapist_clients/{doc} {
+      allow read, write: if isSignedIn() &&
+        (request.auth.uid == resource.data.therapistId || request.auth.uid == resource.data.clientUserId);
+    }
+
+    match /reports/{id} {
+      allow create, read:
+        if isSignedIn() && (request.resource.data.userId == request.auth.uid || resource.data.userId == request.auth.uid)
+        || (isSignedIn() && hasTherapistLink(resource.data.userId));
+      allow delete, update: if false;
+    }
+  }
+}

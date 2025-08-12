@@ -1,0 +1,45 @@
+name: dbt_plus
+description: DBT+ minimal Flutter app
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  google_fonts: any
+  cloud_firestore: any
+  firebase_core: any
+  firebase_auth: any
+  firebase_analytics: any
+  firebase_crashlytics: any
+  firebase_remote_config: any
+  in_app_purchase: any
+  url_launcher: any
+  hooks_riverpod: any
+  freezed_annotation: any
+  json_annotation: any
+  flutter_markdown: any
+  shared_preferences: any
+  go_router: any
+  fl_chart: any
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: any
+  freezed: any
+  json_serializable: any
+  very_good_analysis: any
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/seed/
+  generate: true
